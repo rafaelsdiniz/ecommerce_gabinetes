@@ -2,9 +2,9 @@ package br.controller;
 
 import java.util.List;
 
-import br.dto.ClienteRequestDTO;
-import br.dto.ClienteResponseDTO;
-import br.service.ClienteService;
+import br.dto.EnderecoRequestDTO;
+import br.dto.EnderecoResponseDTO;
+import br.service.EnderecoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -16,33 +16,33 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/clientes")
+@Path("/enderecos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ClienteController {
+public class EnderecoController {
 
     @Inject
-    ClienteService service;
+    EnderecoService service;
 
     @POST
-    public void salvar(ClienteRequestDTO dto) {
+    public void salvar(EnderecoRequestDTO dto) {
         service.salvar(dto);
     }
 
     @GET
-    public List<ClienteResponseDTO> listar() {
+    public List<EnderecoResponseDTO> listar() {
         return service.listarTodos();
     }
 
     @GET
     @Path("/{id}")
-    public ClienteResponseDTO buscarPorId(@PathParam("id") Long id) {
+    public EnderecoResponseDTO buscarPorId(@PathParam("id") Long id) {
         return service.buscarPorId(id);
     }
 
     @PUT
     @Path("/{id}")
-    public void atualizar(@PathParam("id") Long id, ClienteRequestDTO dto) {
+    public void atualizar(@PathParam("id") Long id, EnderecoRequestDTO dto) {
         service.atualizar(id, dto);
     }
 

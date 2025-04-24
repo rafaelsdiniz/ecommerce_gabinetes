@@ -2,9 +2,9 @@ package br.controller;
 
 import java.util.List;
 
-import br.dto.PedidoRequestDTO;
-import br.dto.PedidoResponseDTO;
-import br.service.PedidoService;
+import br.dto.PagamentoRequestDTO;
+import br.dto.PagamentoResponseDTO;
+import br.service.PagamentoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -16,33 +16,33 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/pedido")
+@Path("/pagamento")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+public class PagamentoController {
 
-public class PedidoController {
     @Inject
-    PedidoService service;
+    PagamentoService service;
 
     @POST
-    public void salvar(PedidoRequestDTO dto) {
+    public void salvar(PagamentoRequestDTO dto) {
         service.salvar(dto);
     }
 
     @GET
-    public List<PedidoResponseDTO> listar() {
+    public List<PagamentoResponseDTO> listar() {
         return service.listarTodos();
     }
 
     @GET
     @Path("/{id}")
-    public PedidoResponseDTO buscarPorId(@PathParam("id") Long id) {
+    public PagamentoResponseDTO buscarPorId(@PathParam("id") Long id) {
         return service.buscarPorId(id);
     }
 
     @PUT
     @Path("/{id}")
-    public void atualizar(@PathParam("id") Long id, PedidoRequestDTO dto) {
+    public void atualizar(@PathParam("id") Long id, PagamentoRequestDTO dto) {
         service.atualizar(id, dto);
     }
 
