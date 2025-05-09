@@ -1,11 +1,10 @@
 package br.repository;
 
-import br.entity.ClienteFisico;
+import br.model.ClienteFisico;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
+public class ClienteFisicoRepository implements PanacheRepository<ClienteFisico> {
 
-public class ClienteFisicoRepository implements PanacheRepository<ClienteFisico>{
-    
 }

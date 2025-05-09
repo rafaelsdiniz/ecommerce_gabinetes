@@ -1,74 +1,30 @@
 package br.dto;
 
 public class ClienteJuridicoResponseDTO {
-    private Long id;
-    private String razaoSocial;
-    private String nomeFantasia;
-    private String cnpj;
-    private String inscricaoEstadual;
 
-    private String telefone;
+    private Long id;
     private String email;
-    private EnderecoResponseDTO endereco;
+    private String telefone;
+
+    private String nomeFantasia;
+    private String razaoSocial;
+    private String cnpj;
     
     public ClienteJuridicoResponseDTO() {
     }
 
-    public ClienteJuridicoResponseDTO(Long id, String razaoSocial, String nomeFantasia, String cnpj,
-            String inscricaoEstadual, String telefone, String email, EnderecoResponseDTO endereco) {
+    public ClienteJuridicoResponseDTO(Long id, String email, String telefone, String nomeFantasia, String razaoSocial,
+            String cnpj) {
         this.id = id;
-        this.razaoSocial = razaoSocial;
-        this.nomeFantasia = nomeFantasia;
-        this.cnpj = cnpj;
-        this.inscricaoEstadual = inscricaoEstadual;
-
-        this.telefone = telefone;
         this.email = email;
-        this.endereco = endereco;
+        this.telefone = telefone;
+        this.nomeFantasia = nomeFantasia;
+        this.razaoSocial = razaoSocial;
+        this.cnpj = cnpj;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
-
-    public String getNomeFantasia() {
-        return nomeFantasia;
-    }
-
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getInscricaoEstadual() {
-        return inscricaoEstadual;
-    }
-
-    public void setInscricaoEstadual(String inscricaoEstadual) {
-        this.inscricaoEstadual = inscricaoEstadual;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public String getEmail() {
@@ -79,14 +35,37 @@ public class ClienteJuridicoResponseDTO {
         this.email = email;
     }
 
-    public EnderecoResponseDTO getEndereco() {
-        return endereco;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setEndereco(EnderecoResponseDTO endereco) {
-        this.endereco = endereco;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
+    public String getNomeFantasia() {
+        return nomeFantasia;
+    }
+
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
+    }
+
+    public String getRazaoSocial() {
+        return razaoSocial;
+    }
+
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
 
     
 }

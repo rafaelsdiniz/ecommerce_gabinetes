@@ -1,29 +1,29 @@
 package br.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "DTO de resposta para informações de gabinete")
 public class GabineteResponseDTO {
-    
-    private long id;
+    private Long id;
     private String nomeExibicao;
     private String marca;
     private Double preco;
     private String cor;
     private String formato;
-    private int altura;
-    private int largura;
-    private double peso;
-    private boolean suportaWaterCooler;
-    private int tamanhoMaxGpu;
-    private int alturaMaxCooler;
-    private boolean rgb;
-    private int usb;
-    private int usbc;
+    private Integer altura;
+    private Integer largura;
+    private Double peso;
+    private Integer tamanhoMaxGpu;
+    private Integer alturaMaxCooler;
+    private Integer qtdRgb;
+    private Integer usb;
+    private Integer usbc;
 
-    public GabineteResponseDTO() {
-    }
+    public GabineteResponseDTO() {}
 
-    public GabineteResponseDTO(long id, String nomeExibicao, String marca, Double preco, String cor, String formato,
-            int altura, int largura, double peso, boolean suportaWaterCooler, int tamanhoMaxGpu, int alturaMaxCooler,
-            boolean rgb, int usb, int usbc) {
+    public GabineteResponseDTO(Long id, String nomeExibicao, String marca, Double preco, String cor, String formato,
+            Integer altura, Integer largura, Double peso, Integer tamanhoMaxGpu, Integer alturaMaxCooler,
+            Integer qtdRgb, Integer usb, Integer usbc) {
         this.id = id;
         this.nomeExibicao = nomeExibicao;
         this.marca = marca;
@@ -33,15 +33,14 @@ public class GabineteResponseDTO {
         this.altura = altura;
         this.largura = largura;
         this.peso = peso;
-        this.suportaWaterCooler = suportaWaterCooler;
         this.tamanhoMaxGpu = tamanhoMaxGpu;
         this.alturaMaxCooler = alturaMaxCooler;
-        this.rgb = rgb;
+        this.qtdRgb = qtdRgb;
         this.usb = usb;
         this.usbc = usbc;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -85,79 +84,69 @@ public class GabineteResponseDTO {
         this.formato = formato;
     }
 
-    public int getAltura() {
+    public Integer getAltura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(Integer altura) {
         this.altura = altura;
     }
 
-    public int getLargura() {
+    public Integer getLargura() {
         return largura;
     }
 
-    public void setLargura(int largura) {
+    public void setLargura(Integer largura) {
         this.largura = largura;
     }
 
-    public double getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
-    public boolean isSuportaWaterCooler() {
-        return suportaWaterCooler;
-    }
-
-    public void setSuportaWaterCooler(boolean suportaWaterCooler) {
-        this.suportaWaterCooler = suportaWaterCooler;
-    }
-
-    public int getTamanhoMaxGpu() {
+    public Integer getTamanhoMaxGpu() {
         return tamanhoMaxGpu;
     }
 
-    public void setTamanhoMaxGpu(int tamanhoMaxGpu) {
+    public void setTamanhoMaxGpu(Integer tamanhoMaxGpu) {
         this.tamanhoMaxGpu = tamanhoMaxGpu;
     }
 
-    public int getAlturaMaxCooler() {
+    public Integer getAlturaMaxCooler() {
         return alturaMaxCooler;
     }
 
-    public void setAlturaMaxCooler(int alturaMaxCooler) {
+    public void setAlturaMaxCooler(Integer alturaMaxCooler) {
         this.alturaMaxCooler = alturaMaxCooler;
     }
 
-    public int getUsb() {
+    public Integer getQtdRgb() {
+        return qtdRgb;
+    }
+
+    public void setQtdRgb(Integer qtdRgb) {
+        this.qtdRgb = qtdRgb;
+    }
+
+    public Integer getUsb() {
         return usb;
     }
 
-    public void setUsb(int usb) {
+    public void setUsb(Integer usb) {
         this.usb = usb;
     }
 
-    public int getUsbc() {
+    public Integer getUsbc() {
         return usbc;
     }
 
-    public void setUsbc(int usbc) {
+    public void setUsbc(Integer usbc) {
         this.usbc = usbc;
     }
 
-    public boolean isRgb() {
-        return rgb;
-    }
 
-    public void setRgb(boolean rgb) {
-        this.rgb = rgb;
-    }
-
-    
-
-    
 }

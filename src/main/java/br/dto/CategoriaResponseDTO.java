@@ -1,21 +1,25 @@
 package br.dto;
 
 public class CategoriaResponseDTO {
+
     private Long id;
     private String nome;
     private String descricao;
 
-    public CategoriaResponseDTO() {
-    }
+    public CategoriaResponseDTO() {}
 
     public CategoriaResponseDTO(Long id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-    }    
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -33,6 +37,4 @@ public class CategoriaResponseDTO {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-
 }

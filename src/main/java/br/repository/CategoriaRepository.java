@@ -1,6 +1,6 @@
 package br.repository;
 
-import br.entity.Categoria;
+import br.model.Categoria;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

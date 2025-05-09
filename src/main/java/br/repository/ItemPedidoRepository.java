@@ -1,6 +1,6 @@
 package br.repository;
 
-import br.entity.ItemPedido;
+import br.model.ItemPedido;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

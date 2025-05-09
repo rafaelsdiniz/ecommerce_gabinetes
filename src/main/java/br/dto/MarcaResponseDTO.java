@@ -1,12 +1,15 @@
 package br.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class MarcaResponseDTO {
     
     private long id;
+    
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
     
-    public MarcaResponseDTO() {
-    }
+    public MarcaResponseDTO() {}
 
     public MarcaResponseDTO(long id, String nome) {
         this.id = id;
@@ -28,5 +31,4 @@ public class MarcaResponseDTO {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 }

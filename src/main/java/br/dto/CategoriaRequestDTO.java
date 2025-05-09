@@ -1,15 +1,19 @@
 package br.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CategoriaRequestDTO {
+
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+
     private String descricao;
 
-    public CategoriaRequestDTO() {
-    }
+    public CategoriaRequestDTO() {}
 
-    public CategoriaRequestDTO(String descricao, String nome) {
-        this.descricao = descricao;
+    public CategoriaRequestDTO(String nome, String descricao) {
         this.nome = nome;
+        this.descricao = descricao;
     }
 
     public String getNome() {
@@ -27,6 +31,4 @@ public class CategoriaRequestDTO {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-
 }

@@ -1,72 +1,73 @@
 package br.dto;
 
-import br.entity.Gabinete;
-import br.entity.Pedido;
+import java.math.BigDecimal;
 
 public class ItemPedidoResponseDTO {
-    private long id;
-    private Pedido pedido;
-    private Gabinete gabinete;
-    private int quantidade;
-    private double precoUnitario;
-    private double precoTotal;
-    
+    private Long id;
+    private Long gabineteId;
+    private String nomeGabinete;
+    private Integer quantidade;
+    private BigDecimal precoUnitario;
+    private BigDecimal precoTotal;
+
     public ItemPedidoResponseDTO() {
     }
 
-    public ItemPedidoResponseDTO(long id, Pedido pedido, Gabinete gabinete, int quantidade, double precoUnitario,
-            double precoTotal) {
+    public ItemPedidoResponseDTO(Long id, Long gabineteId, String nomeGabinete, Integer quantidade, 
+                               BigDecimal precoUnitario, BigDecimal precoTotal) {
         this.id = id;
-        this.pedido = pedido;
-        this.gabinete = gabinete;
+        this.gabineteId = gabineteId;
+        this.nomeGabinete = nomeGabinete;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
         this.precoTotal = precoTotal;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public Long getGabineteId() {
+        return gabineteId;
     }
 
-    public Gabinete getGabinete() {
-        return gabinete;
+    public void setGabineteId(Long gabineteId) {
+        this.gabineteId = gabineteId;
     }
 
-    public void setGabinete(Gabinete gabinete) {
-        this.gabinete = gabinete;
+    public String getNomeGabinete() {
+        return nomeGabinete;
     }
 
-    public int getQuantidade() {
+    public void setNomeGabinete(String nomeGabinete) {
+        this.nomeGabinete = nomeGabinete;
+    }
+
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 
-    public double getPrecoTotal() {
-        return precoTotal;
-    }
-
-    public void setPrecoTotal(double precoTotal) {
-        this.precoTotal = precoTotal;
-    }
-
-    public double getPrecoUnitario() {
+    public BigDecimal getPrecoUnitario() {
         return precoUnitario;
     }
 
-    public void setPrecoUnitario(double precoUnitario) {
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
         this.precoUnitario = precoUnitario;
     }
 
-    
+    public BigDecimal getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(BigDecimal precoTotal) {
+        this.precoTotal = precoTotal;
+    }
 }

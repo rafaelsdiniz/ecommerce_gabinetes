@@ -1,6 +1,6 @@
 package br.repository;
 
-import br.entity.Gabinete;
+import br.model.Gabinete;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

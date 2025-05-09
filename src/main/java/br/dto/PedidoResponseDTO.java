@@ -1,35 +1,42 @@
 package br.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import br.entity.Cliente;
-import br.entity.ItemPedido;
 import br.enums.StatusPedido;
+import br.model.Cliente;
+import br.model.Endereco;
 
 public class PedidoResponseDTO {
-    private long id;
+    private Long id;
     private Cliente cliente;
     private LocalDateTime dataPedido;
-    private List<ItemPedido> itens;
-    private double valorTotal;
+    private List<ItemPedidoResponseDTO> itens;
+    private BigDecimal valorTotal;
     private StatusPedido status;
-    
+    private Endereco endereco;
+
     public PedidoResponseDTO() {
     }
 
-    public PedidoResponseDTO(long id, Cliente cliente, LocalDateTime dataPedido, List<ItemPedido> itens,
-            double valorTotal, StatusPedido status) {
+    public PedidoResponseDTO(Long id, Cliente cliente, LocalDateTime dataPedido, 
+                           List<ItemPedidoResponseDTO> itens, BigDecimal valorTotal, 
+                           StatusPedido status, Endereco endereco) {
         this.id = id;
         this.cliente = cliente;
         this.dataPedido = dataPedido;
         this.itens = itens;
         this.valorTotal = valorTotal;
         this.status = status;
+        this.endereco = endereco;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {
@@ -48,19 +55,19 @@ public class PedidoResponseDTO {
         this.dataPedido = dataPedido;
     }
 
-    public List<ItemPedido> getItens() {
+    public List<ItemPedidoResponseDTO> getItens() {
         return itens;
     }
 
-    public void setItens(List<ItemPedido> itens) {
+    public void setItens(List<ItemPedidoResponseDTO> itens) {
         this.itens = itens;
     }
 
-    public double getValorTotal() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(double valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -72,4 +79,11 @@ public class PedidoResponseDTO {
         this.status = status;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

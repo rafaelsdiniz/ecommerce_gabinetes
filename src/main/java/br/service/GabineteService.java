@@ -1,110 +1,141 @@
 package br.service;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.dto.GabineteRequestDTO;
 import br.dto.GabineteResponseDTO;
-import br.entity.Gabinete;
+import br.model.Gabinete;
 import br.repository.GabineteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
+/*
+ *  private String nomeExibicao;
+    private String marca;
+    private Double preco;
+    private String cor;
+    private String formato;
+    private Integer altura;
+    private Integer largura;
+    private Double peso;
+    private Integer tamanhoMaxGpu;
+    private Integer alturaMaxCooler;
+    private Integer qtdRgb;
+    private Integer usb;
+    private Integer usbc;
+ */
 
-@ApplicationScoped // pro quarkus gerenciar
+@ApplicationScoped
 public class GabineteService {
-    
+
     @Inject
     GabineteRepository repository;
 
     @Transactional
-    public void salvar(GabineteRequestDTO dto){
-        Gabinete gabinete = new Gabinete();
-        gabinete.setNomeExibicao(dto.getNomeExibicao());
-        gabinete.setMarca(dto.getMarca());
-        gabinete.setPreco(dto.getPreco());
-        gabinete.setCor(dto.getCor());
-        gabinete.setFormato(dto.getFormato());
-        gabinete.setAltura(dto.getAltura());
-        gabinete.setPeso(dto.getPeso());
-        gabinete.setSuportaWaterCooler(dto.isSuportaWaterCooler());
-        gabinete.setTamanhoMaxGpu(dto.getTamanhoMaxGpu());
-        gabinete.setAlturaMaxCooler(dto.getAlturaMaxCooler());
-        gabinete.setRbg(dto.isRgb());
-        gabinete.setUsb(dto.getUsb());
-        gabinete.setUsbc(dto.getUsbc());
-        repository.persist(gabinete);
+    public GabineteResponseDTO salvar(GabineteRequestDTO dto) {
+        Gabinete Gabinete = new Gabinete();
+        Gabinete.setNomeExibicao(dto.getNomeExibicao());
+        Gabinete.setMarca(dto.getMarca());
+        Gabinete.setPreco(dto.getPreco());
+        Gabinete.setCor(dto.getCor());
+        Gabinete.setFormato(dto.getFormato());
+        Gabinete.setAltura(dto.getAltura());
+        Gabinete.setLargura(dto.getLargura());
+        Gabinete.setPeso(dto.getPeso());
+        Gabinete.setTamanhoMaxGpu(dto.getTamanhoMaxGpu());
+        Gabinete.setAlturaMaxCooler(dto.getAlturaMaxCooler());
+        Gabinete.setQtdRgb(dto.getQtdRgb());
+        Gabinete.setUsb(dto.getUsb());
+        Gabinete.setUsbc(dto.getUsbc());
+        repository.persist(Gabinete);
 
+        return new GabineteResponseDTO(
+            Gabinete.getId(),
+            Gabinete.getNomeExibicao(),
+            Gabinete.getMarca(),
+            Gabinete.getPreco(),
+            Gabinete.getCor(),
+            Gabinete.getFormato(),
+            Gabinete.getAltura(),
+            Gabinete.getLargura(),
+            Gabinete.getPeso(),
+            Gabinete.getTamanhoMaxGpu(),
+            Gabinete.getAlturaMaxCooler(),
+            Gabinete.getQtdRgb(),
+            Gabinete.getUsb(),
+            Gabinete.getUsbc()
+        );
     }
-
+    
     public List<GabineteResponseDTO> listarTodos() {
         return repository.listAll().stream()
-              .map(gabinete -> new GabineteResponseDTO(
-                    gabinete.getId(),
-                    gabinete.getNomeExibicao(),
-                    gabinete.getMarca(),
-                    gabinete.getPreco(),
-                    gabinete.getCor(),
-                    gabinete.getFormato(),
-                    gabinete.getAltura(),
-                    gabinete.getLargura(),
-                    gabinete.getPeso(),
-                    gabinete.isSuportaWaterCooler(),
-                    gabinete.getTamanhoMaxGpu(),
-                    gabinete.getAlturaMaxCooler(),
-                    gabinete.isRbg(),
-                    gabinete.getUsb(),
-                    gabinete.getUsbc()))
-                .collect(Collectors.toList());
+            .map(Gabinete -> new GabineteResponseDTO(
+                Gabinete.getId(),
+                Gabinete.getNomeExibicao(),
+                Gabinete.getMarca(),
+                Gabinete.getPreco(),
+                Gabinete.getCor(),
+                Gabinete.getFormato(),
+                Gabinete.getAltura(),
+                Gabinete.getLargura(),
+                Gabinete.getPeso(),
+                Gabinete.getTamanhoMaxGpu(),
+                Gabinete.getAlturaMaxCooler(),
+                Gabinete.getQtdRgb(),
+                Gabinete.getUsb(),
+                Gabinete.getUsbc()))
+            .collect(Collectors.toList());
             
     }
 
-    public GabineteResponseDTO buscarPorID(long id) {
-        Gabinete gabinete = repository.findById(id);
-        if (gabinete == null) {
-            throw new NotFoundException("Marca não encontrada, 404");
+    public GabineteResponseDTO buscarPorId(Long id) {
+                Gabinete Gabinete = repository.findById(id);
+        if (Gabinete == null) {
+            throw new NotFoundException("Gabinete Físico não encontrado");
         }
         return new GabineteResponseDTO(
-                    gabinete.getId(),
-                    gabinete.getNomeExibicao(),
-                    gabinete.getMarca(),
-                    gabinete.getPreco(),
-                    gabinete.getCor(),
-                    gabinete.getFormato(),
-                    gabinete.getAltura(),
-                    gabinete.getLargura(),
-                    gabinete.getPeso(),
-                    gabinete.isSuportaWaterCooler(),
-                    gabinete.getTamanhoMaxGpu(),
-                    gabinete.getAlturaMaxCooler(),
-                    gabinete.isRbg(),
-                    gabinete.getUsb(),
-                    gabinete.getUsbc());
+            Gabinete.getId(),
+            Gabinete.getNomeExibicao(),
+            Gabinete.getMarca(),
+            Gabinete.getPreco(),
+            Gabinete.getCor(),
+            Gabinete.getFormato(),
+            Gabinete.getAltura(),
+            Gabinete.getLargura(),
+            Gabinete.getPeso(),
+            Gabinete.getTamanhoMaxGpu(),
+            Gabinete.getAlturaMaxCooler(),
+            Gabinete.getQtdRgb(),
+            Gabinete.getUsb(),
+            Gabinete.getUsbc()
+        );
     }
-
+    
     @Transactional
-    public void atualizar(long id, GabineteRequestDTO dto) {
-        Gabinete gabinete = repository.findById(id);
-        if(gabinete != null){
-            gabinete.setNomeExibicao(dto.getNomeExibicao());
-            gabinete.setMarca(dto.getMarca());
-            gabinete.setPreco(dto.getPreco());
-            gabinete.setCor(dto.getCor());
-            gabinete.setFormato(dto.getFormato());
-            gabinete.setAltura(dto.getAltura());
-            gabinete.setPeso(dto.getPeso());
-            gabinete.setSuportaWaterCooler(dto.isSuportaWaterCooler());
-            gabinete.setTamanhoMaxGpu(dto.getTamanhoMaxGpu());
-            gabinete.setAlturaMaxCooler(dto.getAlturaMaxCooler());
-            gabinete.setRbg(dto.isRgb());
-            gabinete.setUsb(dto.getUsb());
-            gabinete.setUsbc(dto.getUsbc());
+    public void atualizar(Long id, GabineteRequestDTO dto) {
+        Gabinete Gabinete = repository.findById(id);
+        if (Gabinete != null) {
+            Gabinete.setNomeExibicao(dto.getNomeExibicao());
+            Gabinete.setMarca(dto.getMarca());
+            Gabinete.setPreco(dto.getPreco());
+            Gabinete.setCor(dto.getCor());
+            Gabinete.setFormato(dto.getFormato());
+            Gabinete.setAltura(dto.getAltura());
+            Gabinete.setLargura(dto.getLargura());
+            Gabinete.setPeso(dto.getPeso());
+            Gabinete.setTamanhoMaxGpu(dto.getTamanhoMaxGpu());
+            Gabinete.setAlturaMaxCooler(dto.getAlturaMaxCooler());
+            Gabinete.setQtdRgb(dto.getQtdRgb());
+            Gabinete.setUsb(dto.getUsb());
+            Gabinete.setUsbc(dto.getUsbc());
         }
     }
-
+    
     @Transactional
-    public void deletar(long id){
+    public void deletar(Long id) {
         repository.deleteById(id);
     }
 }

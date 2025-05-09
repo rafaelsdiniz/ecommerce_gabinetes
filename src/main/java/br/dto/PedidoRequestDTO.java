@@ -3,35 +3,45 @@ package br.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.entity.Cliente;
-import br.entity.ItemPedido;
 import br.enums.StatusPedido;
+import br.model.Endereco;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class PedidoRequestDTO {
-    private Cliente cliente;
-    private LocalDateTime dataPedido;
-    private List<ItemPedido> itens;
-    private double valorTotal;
-    private StatusPedido status;
-    
-    public PedidoRequestDTO() {
-    }
 
-    public PedidoRequestDTO(Cliente cliente, LocalDateTime dataPedido, List<ItemPedido> itens, double valorTotal,
-            StatusPedido status) {
-        this.cliente = cliente;
+    @NotNull(message = "Cliente é obrigatório")
+    private Long clienteId;
+
+    @NotNull(message = "Data do pedido é obrigatória")
+    private LocalDateTime dataPedido;
+
+    @NotEmpty(message = "Lista de itens não pode ser vazia")
+    private List<ItemPedidoRequestDTO> itens;
+
+    @NotNull(message = "Status é obrigatório")
+    private StatusPedido status;
+
+    @NotNull(message= "Endereço é obrigatório")
+    private Endereco endereco;
+
+    public PedidoRequestDTO() {}
+
+    public PedidoRequestDTO(Long clienteId, LocalDateTime dataPedido, List<ItemPedidoRequestDTO> itens,
+                            StatusPedido status, Endereco endereco) {
+        this.clienteId = clienteId;
         this.dataPedido = dataPedido;
         this.itens = itens;
-        this.valorTotal = valorTotal;
         this.status = status;
+        this.endereco = endereco;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Long getClienteId() {
+        return clienteId;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 
     public LocalDateTime getDataPedido() {
@@ -42,20 +52,12 @@ public class PedidoRequestDTO {
         this.dataPedido = dataPedido;
     }
 
-    public List<ItemPedido> getItens() {
+    public List<ItemPedidoRequestDTO> getItens() {
         return itens;
     }
 
-    public void setItens(List<ItemPedido> itens) {
+    public void setItens(List<ItemPedidoRequestDTO> itens) {
         this.itens = itens;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     public StatusPedido getStatus() {
@@ -66,5 +68,11 @@ public class PedidoRequestDTO {
         this.status = status;
     }
 
-    
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 
 import br.dto.ItemPedidoRequestDTO;
 import br.dto.ItemPedidoResponseDTO;
-import br.entity.ItemPedido;
+import br.model.ItemPedido;
+import br.repository.GabineteRepository;
 import br.repository.ItemPedidoRepository;
+import br.repository.PedidoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -14,61 +16,101 @@ import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class ItemPedidoService {
-    
+
     @Inject
-    ItemPedidoRepository repository;
+    ItemPedidoRepository itemRepository;
+
+    @Inject
+    PedidoRepository pedidoRepository;
+
+    @Inject
+    GabineteRepository gabineteRepository;
 
     @Transactional
-    public void salvar(ItemPedidoRequestDTO dto){
-        ItemPedido ItemPedido = new ItemPedido();
-        ItemPedido.setPedido(dto.getPedido());
-        ItemPedido.setGabinete(dto.getGabinete());
-        ItemPedido.setQuantidade(dto.getQuantidade());
-        ItemPedido.setPrecoUnitario(dto.getPrecoUnitario());
-        ItemPedido.setPrecoTotal(dto.getPrecoTotal());
-        repository.persist(ItemPedido);
-    }
-
-    public List<ItemPedidoResponseDTO> listarTodos(){
-        return repository.listAll().stream()
-            .map(ItemPedido -> new ItemPedidoResponseDTO(
-                ItemPedido.getId(),
-                ItemPedido.getPedido(),
-                ItemPedido.getGabinete(),
-                ItemPedido.getQuantidade(),
-                ItemPedido.getPrecoUnitario(),
-                ItemPedido.getPrecoTotal()))
-            .collect(Collectors.toList());
-    }
-
-        public ItemPedidoResponseDTO buscarPorId(long id) {
-        ItemPedido ItemPedido = repository.findById(id);
-        if (ItemPedido == null) {
-            throw new NotFoundException("ItemPedido não encontrada, 404");
+    public ItemPedidoResponseDTO criar(ItemPedidoRequestDTO dto) {
+        var pedido = pedidoRepository.findById(dto.getIdPedido());
+        if (pedido == null) {
+            throw new NotFoundException("Pedido não encontrado.");
         }
+
+        var gabinete = gabineteRepository.findById(dto.getIdGabinete());
+        if (gabinete == null) {
+            throw new NotFoundException("Gabinete não encontrado.");
+        }
+
+        ItemPedido item = new ItemPedido();
+        item.setPedido(pedido);
+        item.setGabinete(gabinete);
+        item.setQuantidade(dto.getQuantidade());
+        item.setPrecoUnitario(dto.getPrecoUnitario());
+        // O precoTotal será calculado automaticamente pelo @PrePersist
+
+        itemRepository.persist(item);
+
         return new ItemPedidoResponseDTO(
-            ItemPedido.getId(),
-            ItemPedido.getPedido(),
-            ItemPedido.getGabinete(),
-            ItemPedido.getQuantidade(),
-            ItemPedido.getPrecoUnitario(),
-            ItemPedido.getPrecoTotal());
+            item.getId(),
+            item.getGabinete().getId(),
+            item.getGabinete().getNomeExibicao(),
+            item.getQuantidade(),
+            item.getPrecoUnitario(),
+            item.getPrecoTotal()
+        );
+    }
+
+    public List<ItemPedidoResponseDTO> listarTodos() {
+        return itemRepository.listAll()
+                .stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public ItemPedidoResponseDTO buscarPorId(Long id) {
+        ItemPedido item = itemRepository.findById(id);
+        if (item == null) {
+            throw new NotFoundException("Item do pedido não encontrado.");
+        }
+        return toResponseDTO(item);
     }
 
     @Transactional
-    public void atualizar(long id, ItemPedidoRequestDTO dto) {
-        ItemPedido ItemPedido = repository.findById(id);
-        if(ItemPedido != null){
-            ItemPedido.setPedido(dto.getPedido());
-        ItemPedido.setGabinete(dto.getGabinete());
-        ItemPedido.setQuantidade(dto.getQuantidade());
-        ItemPedido.setPrecoUnitario(dto.getPrecoUnitario());
-        ItemPedido.setPrecoTotal(dto.getPrecoTotal());
+    public void atualizar(Long id, ItemPedidoRequestDTO dto) {
+        ItemPedido item = itemRepository.findById(id);
+        if (item == null) {
+            throw new NotFoundException("Item do pedido não encontrado.");
+        }
+
+        var pedido = pedidoRepository.findById(dto.getIdPedido());
+        if (pedido == null) {
+            throw new NotFoundException("Pedido não encontrado.");
+        }
+
+        var gabinete = gabineteRepository.findById(dto.getIdGabinete());
+        if (gabinete == null) {
+            throw new NotFoundException("Gabinete não encontrado.");
+        }
+
+        item.setPedido(pedido);
+        item.setGabinete(gabinete);
+        item.setQuantidade(dto.getQuantidade());
+        item.setPrecoUnitario(dto.getPrecoUnitario());
+        // O precoTotal será atualizado automaticamente pelo @PreUpdate
+    }
+
+    @Transactional
+    public void deletar(Long id) {
+        if (!itemRepository.deleteById(id)) {
+            throw new NotFoundException("Item do pedido não encontrado para exclusão.");
         }
     }
 
-    @Transactional
-    public void deletar(long id){
-        repository.deleteById(id);
+    private ItemPedidoResponseDTO toResponseDTO(ItemPedido item) {
+        return new ItemPedidoResponseDTO(
+            item.getId(),
+            item.getGabinete().getId(),
+            item.getGabinete().getNomeExibicao(),
+            item.getQuantidade(),
+            item.getPrecoUnitario(),
+            item.getPrecoTotal()
+        );
     }
 }
