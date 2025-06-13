@@ -2,23 +2,27 @@ package br.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Usuario extends DefaultEntity{
+public class Usuario extends DefaultEntity {
 
     @Column(length = 30, unique = true)
     private String username;
+
     @Column(length = 88)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
     private Perfil perfil;
 
     @OneToOne
-    @JoinColumn(name = "id_clientefisico", unique = true)
+    @JoinColumn(name = "id_cliente", unique = true)
+    private Cliente cliente;
 
-    private ClienteFisico clienteFisico;
 
     public String getUsername() {
         return username;
@@ -44,13 +48,11 @@ public class Usuario extends DefaultEntity{
         this.perfil = perfil;
     }
 
-    public ClienteFisico getClienteFisico() {
-        return clienteFisico;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteFisico(ClienteFisico clienteFisico) {
-        this.clienteFisico = clienteFisico;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
-
 }
-

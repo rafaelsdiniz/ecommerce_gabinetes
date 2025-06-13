@@ -11,6 +11,8 @@ import io.restassured.http.ContentType;
 @QuarkusTest
 public class ClienteJuridicoResourceTest {
 
+    private static final String TOKEN_FIXO = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsInN1YiI6ImxlYW5kcmEiLCJncm91cHMiOlsiQWRtIl0sImV4cCI6MTc1MTgwMzg3MiwiaWF0IjoxNzQ5MjExODcyLCJqdGkiOiIyZDgwOTQyMy03Y2ZlLTRhOTktYTE4OS00ODk5NWRlYmViNzkifQ.iFMAWEvqQUvOGOu8QiKS4gNpJBMtAaKvzINzOGPmRbLreHKWLjN6SALQ54451CxENgCoh_a0DLa7Y2J2WfcqYifPMVM7Kj4nSSwLAv2OmEO6ZM063hkhZLisjqqkT7o2CXLber_b3TXWPyVytvzcgeyfQI--Gv_3MAhzXTDOr0bVBgNYW3qNU_APyBmhkdC8-7He2n0agenq7brBZxzJDmNsOUbuC1E4Tlt6bQ3rEjQMBcIOB39Jq4Jo2q800vj4VE-gbI9AHEMojXPAaF_2IpMwIc0_U7wa--pHCTmoMy0AiQzvtmNMMgdAncTX0O6acFEHx4Bb9OReohGNtQq5ZA";
+
     @Test
     public void testSalvarClienteJuridico() {
         String json = """
@@ -25,6 +27,7 @@ public class ClienteJuridicoResourceTest {
 
         given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/juridicos")
@@ -52,6 +55,7 @@ public class ClienteJuridicoResourceTest {
 
         int id = given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(jsonCreate)
         .when()
             .post("/clientes/juridicos")
@@ -71,6 +75,7 @@ public class ClienteJuridicoResourceTest {
 
         given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(jsonUpdate)
         .when()
             .put("/clientes/juridicos/" + id)
@@ -78,7 +83,8 @@ public class ClienteJuridicoResourceTest {
             .statusCode(204);
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/juridicos/" + id)
         .then()
             .statusCode(200)
@@ -103,6 +109,7 @@ public class ClienteJuridicoResourceTest {
 
         int id = given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/juridicos")
@@ -111,7 +118,8 @@ public class ClienteJuridicoResourceTest {
             .extract().path("id");
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/juridicos/" + id)
         .then()
             .statusCode(200)
@@ -125,7 +133,8 @@ public class ClienteJuridicoResourceTest {
     @Test
     public void testListarTodos() {
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/juridicos")
         .then()
             .statusCode(200);
@@ -145,6 +154,7 @@ public class ClienteJuridicoResourceTest {
 
         int id = given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/juridicos")
@@ -153,13 +163,15 @@ public class ClienteJuridicoResourceTest {
             .extract().path("id");
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .delete("/clientes/juridicos/" + id)
         .then()
             .statusCode(204);
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/juridicos/" + id)
         .then()
             .statusCode(404);
@@ -179,6 +191,7 @@ public class ClienteJuridicoResourceTest {
 
         given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/juridicos")

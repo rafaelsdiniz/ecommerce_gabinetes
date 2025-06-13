@@ -1,7 +1,5 @@
 package br.unitins.tp1.resource;
 
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -9,105 +7,114 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import br.dto.ItemPedidoResponseDTO;
-import br.service.ItemPedidoService;
 import io.quarkus.test.junit.QuarkusTest;
 import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
-import jakarta.inject.Inject;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class ItemPedidoResourceTest {
 
-    @Inject
-    ItemPedidoService itemPedidoService;
-
     static Long idItemPedido;
+
+
+    private static final String TOKEN_ADMIN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsInN1YiI6ImxlYW5kcmEiLCJncm91cHMiOlsiQWRtIl0sImV4cCI6MTc1MTgwMzg3MiwiaWF0IjoxNzQ5MjExODcyLCJqdGkiOiIyZDgwOTQyMy03Y2ZlLTRhOTktYTE4OS00ODk5NWRlYmViNzkifQ.iFMAWEvqQUvOGOu8QiKS4gNpJBMtAaKvzINzOGPmRbLreHKWLjN6SALQ54451CxENgCoh_a0DLa7Y2J2WfcqYifPMVM7Kj4nSSwLAv2OmEO6ZM063hkhZLisjqqkT7o2CXLber_b3TXWPyVytvzcgeyfQI--Gv_3MAhzXTDOr0bVBgNYW3qNU_APyBmhkdC8-7He2n0agenq7brBZxzJDmNsOUbuC1E4Tlt6bQ3rEjQMBcIOB39Jq4Jo2q800vj4VE-gbI9AHEMojXPAaF_2IpMwIc0_U7wa--pHCTmoMy0AiQzvtmNMMgdAncTX0O6acFEHx4Bb9OReohGNtQq5ZA";
+
+    private void ensureItemPedidoExists() {
+
+        if (idItemPedido == null) {
+            testCriarItemPedidoValido();
+        }
+    }
 
     @Test
     @Order(1)
     public void testCriarItemPedidoValido() {
         String json = """
             {
-            "idPedido": 1,
-            "idGabinete": 1,
-            "quantidade": 2,
-            "precoUnitario": 350.00,
-            "precoTotal": 700.00
+                "idPedido": 1,
+                "idGabinete": 1,
+                "quantidade": 2,
+                "precoUnitario": 350.00,
+                "precoTotal": 700.00
             }
-        """; 
+        """;
 
-        given()
-            .contentType(ContentType.JSON)
-            .body(json)
-        .when()
-            .post("/itempedido")
-        .then()
-            .statusCode(201)
-            .body("id", notNullValue())
-            .log().ifValidationFails(); // Adicione essa linha para obter mais informações sobre o erro
+        idItemPedido = ((Number)
+            given()
+                .header("Authorization", "Bearer " + TOKEN_ADMIN)
+                .contentType(ContentType.JSON)
+                .body(json)
+            .when()
+                .post("/itempedido")
+            .then()
+                .statusCode(201)
+                .body("id", notNullValue())
+                .extract().path("id")
+        ).longValue();
     }
 
     @Test
     @Order(2)
     public void testListarTodosItensPedido() {
         given()
-            .when().get("/itempedido")
-            .then()
+            .header("Authorization", "Bearer " + TOKEN_ADMIN)
+        .when()
+            .get("/itempedido")
+        .then()
             .statusCode(200);
     }
 
     @Test
     @Order(3)
     public void testBuscarItemPedidoPorId() {
-        List<ItemPedidoResponseDTO> itens = itemPedidoService.listarTodos();
-        if (itens.isEmpty()) {
-            testCriarItemPedidoValido();
-            itens = itemPedidoService.listarTodos();
-        }
-        if (!itens.isEmpty()) {
-            idItemPedido = itens.get(0).getId();
+        ensureItemPedidoExists();
 
-            given()
-                .when().get("/itempedido/" + idItemPedido)
-                .then()
-                .statusCode(200)
-                .body("id", is(idItemPedido.intValue()));  
-        } else {
-            // Lidar com a lista vazia
-        }
+        given()
+            .header("Authorization", "Bearer " + TOKEN_ADMIN)
+        .when()
+            .get("/itempedido/" + idItemPedido)
+        .then()
+            .statusCode(200)
+            .body("id", is(idItemPedido.intValue()));
     }
 
     @Test
     @Order(4)
     public void testAtualizarItemPedido() {
+        ensureItemPedidoExists();
+
         String json = """
         {
-        "idPedido": 1,
-        "idGabinete": 1,
-        "quantidade": 2,
-        "precoUnitario": 350.00,
-        "precoTotal": 700.00
+            "idPedido": 1,
+            "idGabinete": 1,
+            "quantidade": 3,
+            "precoUnitario": 400.00,
+            "precoTotal": 1200.00
         }
-        """; 
+        """;
 
         given()
+            .header("Authorization", "Bearer " + TOKEN_ADMIN)
             .contentType(ContentType.JSON)
             .body(json)
         .when()
             .put("/itempedido/" + idItemPedido)
         .then()
-            .statusCode(204);  
+            .statusCode(204);
     }
 
     @Test
     @Order(5)
     public void testDeletarItemPedido() {
+        ensureItemPedidoExists();
+
         given()
-            .when().delete("/itempedido/" + idItemPedido)
-            .then()
-            .statusCode(204);  
+            .header("Authorization", "Bearer " + TOKEN_ADMIN)
+        .when()
+            .delete("/itempedido/" + idItemPedido)
+        .then()
+            .statusCode(204);
     }
 
     @Test
@@ -121,14 +128,15 @@ public class ItemPedidoResourceTest {
             "precoUnitario": -10,
             "precoTotal": -10
         }
-        """; 
+        """;
 
         given()
+            .header("Authorization", "Bearer " + TOKEN_ADMIN)
             .contentType(ContentType.JSON)
             .body(json)
         .when()
             .post("/itempedido")
         .then()
-            .statusCode(400);  
+            .statusCode(400);
     }
 }

@@ -7,6 +7,9 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class HashServiceImpl implements HashService {
 
     private String salt = "@#1237Zt";
@@ -15,7 +18,6 @@ public class HashServiceImpl implements HashService {
 
     @Override
     public String getHashSenha(String senha) throws Exception {
-
         byte[] result;
         try {
             result = SecretKeyFactory
@@ -34,17 +36,14 @@ public class HashServiceImpl implements HashService {
         }
         
         return Base64.getEncoder().encodeToString(result);
-
     }
 
     public static void main(String ... args) {
         HashServiceImpl hash = new HashServiceImpl();
         try {
             System.out.println(hash.getHashSenha("123456"));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
- 
 }

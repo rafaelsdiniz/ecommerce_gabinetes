@@ -11,6 +11,9 @@ import io.restassured.http.ContentType;
 @QuarkusTest
 public class ClienteFisicoResourceTest {
 
+    // Token JWT fixo enviado por você
+    private static final String TOKEN_FIXO = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsInN1YiI6ImxlYW5kcmEiLCJncm91cHMiOlsiQWRtIl0sImV4cCI6MTc1MTgwMzg3MiwiaWF0IjoxNzQ5MjExODcyLCJqdGkiOiIyZDgwOTQyMy03Y2ZlLTRhOTktYTE4OS00ODk5NWRlYmViNzkifQ.iFMAWEvqQUvOGOu8QiKS4gNpJBMtAaKvzINzOGPmRbLreHKWLjN6SALQ54451CxENgCoh_a0DLa7Y2J2WfcqYifPMVM7Kj4nSSwLAv2OmEO6ZM063hkhZLisjqqkT7o2CXLber_b3TXWPyVytvzcgeyfQI--Gv_3MAhzXTDOr0bVBgNYW3qNU_APyBmhkdC8-7He2n0agenq7brBZxzJDmNsOUbuC1E4Tlt6bQ3rEjQMBcIOB39Jq4Jo2q800vj4VE-gbI9AHEMojXPAaF_2IpMwIc0_U7wa--pHCTmoMy0AiQzvtmNMMgdAncTX0O6acFEHx4Bb9OReohGNtQq5ZA";
+
     @Test
     public void testSalvarClienteFisico() {
         String json = """
@@ -26,6 +29,7 @@ public class ClienteFisicoResourceTest {
 
         given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/fisicos")
@@ -51,6 +55,7 @@ public class ClienteFisicoResourceTest {
 
         int id = given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(jsonCreate)
         .when()
             .post("/clientes/fisicos")
@@ -71,6 +76,7 @@ public class ClienteFisicoResourceTest {
 
         given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(jsonUpdate)
         .when()
             .put("/clientes/fisicos/" + id)
@@ -78,7 +84,9 @@ public class ClienteFisicoResourceTest {
             .statusCode(204);
 
         given()
-            .when().get("/clientes/fisicos/" + id)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
+            .get("/clientes/fisicos/" + id)
         .then()
             .statusCode(200)
             .body("nome", is("Carlos Alberto"))
@@ -100,6 +108,7 @@ public class ClienteFisicoResourceTest {
 
         int id = given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/fisicos")
@@ -108,7 +117,8 @@ public class ClienteFisicoResourceTest {
             .extract().path("id");
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/fisicos/" + id)
         .then()
             .statusCode(200)
@@ -119,7 +129,8 @@ public class ClienteFisicoResourceTest {
     @Test
     public void testListarTodos4() {
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/fisicos")
         .then()
             .statusCode(200);
@@ -140,6 +151,7 @@ public class ClienteFisicoResourceTest {
 
         int id = given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/fisicos")
@@ -148,13 +160,15 @@ public class ClienteFisicoResourceTest {
             .extract().path("id");
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .delete("/clientes/fisicos/" + id)
         .then()
             .statusCode(204);
 
         given()
-            .when()
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
+        .when()
             .get("/clientes/fisicos/" + id)
         .then()
             .statusCode(404);
@@ -175,6 +189,7 @@ public class ClienteFisicoResourceTest {
 
         given()
             .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + TOKEN_FIXO)
             .body(json)
         .when()
             .post("/clientes/fisicos")

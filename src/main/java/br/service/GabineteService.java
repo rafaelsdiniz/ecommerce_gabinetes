@@ -12,21 +12,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
-/*
- *  private String nomeExibicao;
-    private String marca;
-    private Double preco;
-    private String cor;
-    private String formato;
-    private Integer altura;
-    private Integer largura;
-    private Double peso;
-    private Integer tamanhoMaxGpu;
-    private Integer alturaMaxCooler;
-    private Integer qtdRgb;
-    private Integer usb;
-    private Integer usbc;
- */
 
 @ApplicationScoped
 public class GabineteService {

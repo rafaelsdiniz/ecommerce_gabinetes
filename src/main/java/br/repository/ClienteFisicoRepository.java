@@ -6,5 +6,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ClienteFisicoRepository implements PanacheRepository<ClienteFisico> {
-
+    // Nenhum método por login necessário aqui
 }

@@ -69,7 +69,8 @@ insert into gabinete (altura, alturamaxcooler, largura, peso, preco, qtdrgb, tam
 (44, 150, 220, 7.6, 479.99, 4, 340, 4, 1, 'Branco', 'Mid Tower', 'MSI', 'MAG Forge 100R'),
 (49, 160, 260, 10.0, 799.99, 6, 400, 6, 3, 'Preto', 'Full Tower', 'Thermaltake', 'View 71'),
 (47, 160, 235, 7.9, 399.99, 3, 310, 4, 1, 'Preto Fosco', 'Mid Tower', 'Gigabyte', 'AORUS C300G'),
-(41, 130, 210, 6.5, 349.99, 2, 320, 3, 2, 'Preto', 'Micro-ATX', 'Antec', 'VSK-3000');
+(41, 130, 210, 6.5, 349.99, 2, 320, 3, 2, 'Preto', 'Micro-ATX', 'Antec', 'VSK-3000'),
+(41, 130, 210, 6.5, 349.99, 2, 320, 3, 2, 'Preto', 'Micro-ATX', 'Antecss', 'VSK-3000ss');
 
 insert into pedido (valortotal, cliente_id, datapedido, bairro, cep, cidade, estado, logradouro, numero, status) values
 (350.50, 1, '2025-05-08 10:00:00', 'Centro', '12345000', 'São Paulo', 'SP', 'Rua das Flores', 120, 'PROCESSANDO'),
@@ -145,6 +146,32 @@ insert into pagamento (valor, data, pedido_id, forma_pagamento, status_pagamento
 (180.60, '2025-05-01', 8, 'CARTAO_DEBITO', 'APROVADO'),
 (250.45, '2025-04-30', 9, 'CARTAO_CREDITO', 'PENDENTE'),
 (320.00, '2025-04-29', 10, 'PIX', 'APROVADO');
+
+insert into usuario(username, senha, perfil, id_cliente) values  
+('leandra', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', 1),
+('carlos', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', 2),
+('mariana', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', 3),
+('joao', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', 4),
+('ana', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', 5),
+('pedro', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', 6),
+('juliana', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', 7),
+('bruno', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', 8),
+('carla', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', 9),
+('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', 10);
+
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (1, 10);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (2, 5);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (3, 15);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (4, 8);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (5, 12);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (6, 20);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (7, 7);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (8, 25);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (9, 18);
+INSERT INTO estoque (gabinete_id, quantidade_disponivel) VALUES (10, 30);
+
+
+
 
 
  
