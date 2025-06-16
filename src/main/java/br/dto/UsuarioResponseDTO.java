@@ -22,7 +22,7 @@ public record UsuarioResponseDTO(
         if (cliente instanceof ClienteFisico fisico) {
             nome = fisico.getNome();
         } else if (cliente instanceof ClienteJuridico juridico) {
-            nome = juridico.getNomeFantasia(); // ou juridico.getRazaoSocial()
+            nome = juridico.getNomeFantasia(); 
         }
 
         return new UsuarioResponseDTO(

@@ -73,7 +73,7 @@ public class ItemPedidoService {
 
     public List<ItemPedidoResponseDTO> listarPorClienteLogado() {
         Cliente cliente = getClienteLogado();
-        // Assumindo que ItemPedidoRepository tenha método para buscar por cliente via pedido
+
         return itemPedidoRepository.findByClienteId(cliente.getId()).stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
