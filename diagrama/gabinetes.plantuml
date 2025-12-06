@@ -1,0 +1,161 @@
+@startuml E-commerce Gabinetes 
+
+' Configurações de estilo
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FEFEFE
+skinparam class {
+    BackgroundColor #E8F4F8
+    BorderColor #2C5F7C
+    ArrowColor #2C5F7C
+}
+
+' Entidades Principais
+class Gabinete {
+    - nome: String
+    - modelo: Modelo
+    - descricao: String
+    - preco: BigDecimal
+    - formato: Formato
+    - altura: Integer
+    - largura: Integer
+    - peso: Double
+    - tamanhoMaximoGPU: Integer
+    - alturaMaximaCoolerCPU: Integer
+    - usb: Integer
+    - usbc: Integer 
+    - informacoesAdicionais: List<InformacaoAdicional> 
+    - fornecedor: Fornecedor
+
+}
+
+class Categoria {
+    - nome: String
+    - descricao: String
+}
+
+class Fornecedor {
+    - cnpj: String
+}
+
+class Modelo{
+    - nomeModelo: String
+    - marca: Marca
+}
+
+class Marca {
+    - nome: String
+    - descricao: String
+}
+
+class Estoque {
+    - quantidade: Integer
+    - Gabinete gabinete
+}
+
+' Clientes
+class Cliente {
+    - email: String
+    - telefone : String
+    - endereco: List<Endereco>
+}
+
+class Pessoa{
+    - nome: String
+    - email: String
+    - telefone: String
+}
+
+class Endereco {
+    - logradouro: String
+    - numero: String
+    - cidade: String
+    - estado: String
+    - cep: String
+    - bairro: String
+}
+
+' Pedidos
+class Pedido {
+    - cliente: Cliente
+    - dataPedido: LocalDateTime
+    - itens: List<ItemPedido>
+    - valorTotal: BigDecimal
+    - status: StatusPedido
+}
+
+class ItemPedido {
+    - pedido: Pedido
+    - gabinete: Gabinete
+    - quantidade: Integer
+    - precoUnitario: BigDecimal
+    - subtotal: BigDecimal
+}
+
+class Pagamento {
+    - pedido: Pedido
+    - valor: BigDecimal
+    - dataPagamento: LocalDateTime
+    - status: statusPagamento
+    - formaPagamento: formaPagamento
+}
+
+class InformacaoAdicional {
+    - descricao: String
+}
+
+enum Perfil {
+    + ADMIN: int
+    + USER: int
+}
+
+enum StatusPedido {
+    + PENDENTE: int
+    + PROCESSANDO: int
+    + ENVIADO: int
+    + ENTREGUE: int
+    + CANCELADO: int
+}
+
+enum statusPagamento {
+    + APROVADO: int
+    + RECUSADO: int
+    + PENDENTE: int
+}
+
+enum formaPagamento {
+    + CARTAO_CREDITO: int
+    + CARTAO_DEBITO: int
+    + BOLETO: int
+    + PIX: int
+}
+
+' Relacionamentos Principais
+
+' Gabinete
+Gabinete "1" -- "1" Estoque 
+Gabinete "*" -- "1" Modelo
+Gabinete "*" -- "*" Categoria 
+Gabinete "1" *-- "*" InformacaoAdicional
+
+' Cliente
+Cliente "1" -- "*" Endereco 
+Cliente "1" -- "*" Pedido 
+
+' Pedido
+Pedido "1" *-- "*" ItemPedido 
+Pedido "1" -- "0..1" Pagamento 
+ItemPedido "*" -- "1" Gabinete 
+
+
+Modelo "*" -- "1" Marca 
+
+Fornecedor "1" -- "*" Gabinete
+
+Fornecedor --|> Pessoa
+
+Cliente --|> Pessoa
+
+
+
+
+@enduml

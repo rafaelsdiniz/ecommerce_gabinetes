@@ -1,0 +1,9 @@
+br\resource\InformacaoAdicionalResourceTest.class
+br\resource\MarcaResourceTest.class
+br\resource\ClienteResourceTest.class
+br\resource\ModeloResourceTest.class
+br\resource\EstoqueResourceTest.class
+br\resource\GabineteResourceTest.class
+br\resource\FornecedorResourceTest.class
+br\resource\CategoriaResourceTest.class
+br\resource\PedidoResourceTest.class
