@@ -9,6 +9,7 @@ import br.dto.request.ClienteRequestDTO;
 import br.dto.request.TrocarSenhaDTO;
 import br.dto.response.ClienteResponseDTO;
 import br.service.ClienteService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -41,10 +42,10 @@ public class ClienteResource {
     SecurityContext securityContext;
 
     @POST
-    public Response salvar(@Valid ClienteRequestDTO dto) {
-        ClienteResponseDTO responseDTO = clienteService.salvar(dto);
-        return Response.status(Response.Status.CREATED).entity(responseDTO).build();
-    }
+public Response salvar(@Valid ClienteRequestDTO dto) {
+    ClienteResponseDTO responseDTO = clienteService.salvar(dto);
+    return Response.status(Response.Status.CREATED).entity(responseDTO).build();
+}
 
     @GET
     @RolesAllowed({"ADMIN", "CLIENTE"})
